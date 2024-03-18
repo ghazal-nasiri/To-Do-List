@@ -5,7 +5,7 @@ d = nowDate.toString().split(" ");
 date.innerHTML = d[1] + " " + d[2] + " " + d[3];
 // loading
 let loading = document.querySelector(".loading")
-window.addEventListener("load", ()=>{
+window.addEventListener("load", () => {
     loading.style.visibility = "hidden"
     showTasks()
 })
@@ -13,6 +13,12 @@ let ul = document.querySelector("ul");
 let AddBtn = document.querySelector("button");
 let input = document.querySelector("input");
 let tasks;
+AddBtn.addEventListener("touchmove", () => {
+    AddBtn.style.backgroundColor = "pink";
+})
+AddBtn.addEventListener("touchend", () => {
+    AddBtn.style.backgroundColor = "rgb(255, 119, 142)";
+})
 if (!localStorage.getItem("todo")) {
     tasks = [];
 }
@@ -22,18 +28,20 @@ else {
 ul.addEventListener("click", (e) => {
     if (e.target.nodeName == "LI") {
         e.target.classList.toggle("done");
-        e.target.addEventListener("touchmove", () => {
+    }
+    ul.addEventListener("touchmove", (e) => {
+        if (e.target.nodeName == "LI") {
             e.target.lastElementChild.style.display = "block";
             e.target.style.backgroundColor = "pink";
-            AddBtn.style.backgroundColor = "pink";
-        })
-        e.target.addEventListener("touchend", () => {
+        }
+    })
+    ul.addEventListener("touchend", (e) => {
+        if (e.target.nodeName == "LI") {
             e.target.lastElementChild.style.display = "none";
             e.target.style.backgroundColor = "rgb(255, 119, 142)";
-            AddBtn.style.backgroundColor = "rgb(255, 119, 142)";
-        
-        })
-    }
+        }
+    })
+
     // remove work
     if (e.target.nodeName == "I") {
         let li = e.target.parentElement;
