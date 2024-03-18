@@ -14,7 +14,7 @@ let AddBtn = document.querySelector("button");
 let input = document.querySelector("input");
 let tasks;
 AddBtn.addEventListener("touchmove", () => {
-    AddBtn.style.backgroundColor = "rgb(255, 119, 142)";
+    AddBtn.style.backgroundColor = "rgb(255, 154, 171)";
 })
 AddBtn.addEventListener("touchend", () => {
     AddBtn.style.backgroundColor = "pink";
@@ -32,7 +32,7 @@ ul.addEventListener("click", (e) => {
     ul.addEventListener("touchmove", (e) => {
         if (e.target.nodeName == "LI") {
             e.target.lastElementChild.style.display = "block";
-            e.target.style.backgroundColor = "rgb(255, 119, 142)";
+            e.target.style.backgroundColor = "rgb(255, 154, 171)";
         }
     })
     ul.addEventListener("touchend", (e) => {
