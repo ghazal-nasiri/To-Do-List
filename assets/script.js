@@ -22,6 +22,17 @@ else {
 ul.addEventListener("click", (e) => {
     if (e.target.nodeName == "LI") {
         e.target.classList.toggle("done");
+        e.target.addEventListener("touchmove", () => {
+            e.target.lastElementChild.style.display = "block";
+            e.target.style.backgroundColor = "pink";
+            AddBtn.style.backgroundColor = "pink";
+        })
+        e.target.addEventListener("touchend", () => {
+            e.target.lastElementChild.style.display = "none";
+            e.target.style.backgroundColor = "rgb(255, 119, 142)";
+            AddBtn.style.backgroundColor = "rgb(255, 119, 142)";
+        
+        })
     }
     // remove work
     if (e.target.nodeName == "I") {
