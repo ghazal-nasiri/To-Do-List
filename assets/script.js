@@ -14,10 +14,10 @@ let AddBtn = document.querySelector("button");
 let input = document.querySelector("input");
 let tasks;
 AddBtn.addEventListener("touchmove", () => {
-    AddBtn.style.backgroundColor = "pink";
+    AddBtn.style.backgroundColor = "rgb(255, 119, 142)";
 })
 AddBtn.addEventListener("touchend", () => {
-    AddBtn.style.backgroundColor = "rgb(255, 119, 142)";
+    AddBtn.style.backgroundColor = "pink";
 })
 if (!localStorage.getItem("todo")) {
     tasks = [];
@@ -32,13 +32,13 @@ ul.addEventListener("click", (e) => {
     ul.addEventListener("touchmove", (e) => {
         if (e.target.nodeName == "LI") {
             e.target.lastElementChild.style.display = "block";
-            e.target.style.backgroundColor = "pink";
+            e.target.style.backgroundColor = "rgb(255, 119, 142)";
         }
     })
     ul.addEventListener("touchend", (e) => {
         if (e.target.nodeName == "LI") {
             e.target.lastElementChild.style.display = "none";
-            e.target.style.backgroundColor = "rgb(255, 119, 142)";
+            e.target.style.backgroundColor = "pink";
         }
     })
 
