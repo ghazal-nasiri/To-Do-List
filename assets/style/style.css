@@ -1,107 +1,73 @@
-* {
+/* font */
+@font-face {
+    font-family: "ConcertOne";
+    src: url(../font/ConcertOne-Regular.woff2) format("woff2");
+}
+:root{
+    --dark-pink : rgb(255, 154, 171);
+}
+
+*{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: cursive ,sans-serif;
+    font-family: "ConcertOne" , sans-serif;
 }
 
-body {
-    height: 100vh;
+body{
+    width: 100%;
+    height: 100%;
     background-color: black;
     display: flex;
     justify-content: center;
-    align-items: center;
 }
 
-/* date */
-.date {
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    text-align: center;
-    font-size: 35px;
-    color: pink;
-}
-
-/* loading */
-.loading {
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    position: fixed;
+.todo_list_container{
+    width: min(500px,90%);
     background-color: lightgreen;
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 25px;
-    color: rgb(255, 119, 142);
-
-}
-
-.loading::after {
-    content: "Loading...";
-    padding: 10px;
-}
-
-.container {
-    width: 500px;
-    max-width: 90%;
-    margin: auto;
-    position: absolute;
-    top: 20%;
-    background-color: lightgreen;
-    padding: 20px;
     border-radius: 30px;
-    box-shadow: 10px 10px 0px pink;
+    padding: 20px;
     border: 2px solid black;
+    box-shadow: 10px 10px pink;
+    margin-top: max(10%,100px);
 }
 
-h1 {
-    margin: 20px 0;
+h1{
     text-align: center;
 }
-
-.newWork {
-    display: flex;
-    align-items: center;
-    border: 2px solid black;
-    border-radius: 40px;
-    overflow: hidden;
-    margin-bottom: 30px;
-}
-
-input {
+/* input and button */
+.top{
     width: 100%;
-    border: 0;
-    outline: 0;
-    padding: 10px;
-    font-size: 18px;
     height: 40px;
-}
-
-button {
-    width: 100px;
-    padding: 10px;
-    border: none;
-    height: 40px;
-    background-color: pink;
-    color: black;
-    font-size: 20px;
-    font-weight: bold;
+    border: 2px solid black;
+    border-radius: 30px;
+    overflow: hidden;
     display: flex;
     align-items: center;
-    justify-content: center;
-
+    margin: 20px 0 30px;
 }
 
-button:hover {
-    background-color: rgb(255, 154, 171);
+input{
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 10px;
+    height: inherit;
+    font-size: 18px;
+}
+button{
+    width: 100px;
+    height: inherit;
+    border: none;
+    background-color: pink;
+    font-size: 20px;
     cursor: pointer;
+    transition: all .2s;
 }
-
+button:hover {
+    background-color: var(--dark-pink);
+}
+/* items todo list */
 li {
     width: 100%;
     padding: 15px;
@@ -121,25 +87,24 @@ li {
     padding-left: 40px;
     position: relative;
 }
-
+li:hover {
+    background-color: var(--dark-pink);
+}
+/* delete item icon */
 .fa-close {
     display: none;
-}
-
-li:hover {
-    background-color: rgb(255, 154, 171);
-}
-
-li:hover .fa-close {
-    display: block;
-
-}
-
-li i:hover {
-    font-size: 23px;
     cursor: pointer;
 }
-
+li:hover .fa-close {
+    display: block;
+}
+li i:hover {
+    transform: scale(1.1);
+}
+/* done */
+.tick{
+    display: none;
+}
 .done .tick {
     width: 10px;
     height: 25px;
@@ -147,51 +112,112 @@ li i:hover {
     border: 3px solid green;
     border-top: none;
     border-right: none;
-}
-
-.done {
-    background-color: rgb(255, 154, 171);
-}
-
-.done p {
-    text-decoration: line-through;
-}
-
-.d-none {
-    display: block;
-}
-
-.tick {
     position: absolute;
     left: 15px;
     bottom: 15px;
+    display: block;
 }
-
+.done {
+    background-color: var(--dark-pink);
+}
+.done p {
+    text-decoration: line-through;
+}
 .done .tick::after {
     content: "";
     position: absolute;
     width: 150%;
     left: -5px;
     height: 120%;
-    background-color: pink;
+    background-color: var(--dark-pink);
     z-index: 2;
     animation: tick .7s linear;
     animation-fill-mode: forwards;
 }
-
 @keyframes tick {
     30% {
         top: 0;
         left: -10px;
     }
-
     100% {
         top: -190%;
         left: -10px;
     }
 }
-
-.done .tick::after,
-li:hover .tick::after {
-    background-color: rgb(255, 154, 171);
+/* modal box */
+.bg-modal-box{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(15px);
+    z-index: 99;
+    display: none;
+}
+.modal-box{
+    width: 300px;
+    height: 150px;
+    background-color: lightgreen;
+    border-left: 5px solid var(--dark-pink);
+    border-radius: 20px;
+    text-align: center;
+    align-content: center;
+    font-size: 25px;
+    position: absolute;
+    top: -30%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 100;
+    transition: all .5s;
+}
+.bg-modal-box.open{
+    display: block;
+}
+.modal-box.open{
+    top: 50%;
+}
+/* Date */
+.date{
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--dark-pink);
+    font-size: 25px;
+}
+/* Loading */
+.loading{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    z-index: 200;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.loading p{
+    color: lightgreen;
+    font-size: 25px;
+}
+.loading p span{
+    animation: loading 3s infinite;
+}
+.loading p span:nth-child(2){
+    animation-delay: .7s;
+}
+.loading p span:nth-child(3){
+    animation-delay: 1.5s;
+}
+@keyframes loading{
+    0%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
 }
