@@ -63,6 +63,7 @@ button{
     font-size: 20px;
     cursor: pointer;
     transition: all .2s;
+    color: #000;
 }
 button:hover {
     background-color: var(--dark-pink);
@@ -90,6 +91,15 @@ li {
 li:hover {
     background-color: var(--dark-pink);
 }
+
+.show-delete-icon li i.fa-close {
+    display: block;
+}
+
+.show-delete-icon li {
+    background-color: var(--dark-pink);
+}
+
 /* delete item icon */
 .fa-close {
     display: none;

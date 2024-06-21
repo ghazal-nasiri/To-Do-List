@@ -1,13 +1,11 @@
+// Loading
+const loading = document.querySelector(".loading");
 addEventListener("load", () => {
     showItems();
     loading.style.display = "none";
 })
-// Loading
-let loading = document.querySelector(".loading");
-
-
 // Show Date
-let date = new Date(); 
+let date = new Date();
 let d = date.toString().split(" ");
 document.querySelector(".date").innerHTML = `${d[1]} ${d[2]} ${d[3]}`;
 // modal box
@@ -17,24 +15,24 @@ bg_modal_box.addEventListener("click", () => {
     modal_box.classList.remove("open");
     bg_modal_box.classList.remove("open");
 })
-let tasks, done;
 // input
 const input = document.querySelector('input');
 // add button
 const addBtn = document.querySelector(".top button")
 // todo list
 const todoList = document.querySelector("ul");
+
+let tasks;
 if (!localStorage.getItem("todo")) {
     tasks = [];
-    done = [];
 }
 else {
-    tasks = localStorage.getItem("todo").split(",");
-    done = localStorage.getItem("done").split(",")
+    tasks = localStorage.getItem("todo").toString().split(",");
 }
-// when add on add button
+// when click on the add button
 addBtn.addEventListener("click", () => {
-    let title = input.value;
+    const title = input.value;
+    if (title == "") return;
     if (tasks.includes(title)) {
         modal_box.classList.add("open");
         bg_modal_box.classList.add("open");
@@ -43,47 +41,55 @@ addBtn.addEventListener("click", () => {
     }
     todoList.innerHTML += newItem(title);
     // add new item to the localStorage
-    tasks.push(title);
-    done.push("false");
+    tasks.push(title, "false");
     localStorage.setItem("todo", tasks);
-    localStorage.setItem("done", done);
     input.value = "";
 })
 todoList.addEventListener("click", (e) => {
+    let indexItemInTasks;
     // delete item and update localStorage
     if (e.target.className == "fa fa-close") {
-        done.splice(tasks.indexOf(e.target.parentElement.innerText), 1);
-        localStorage.setItem("done", done);
-        tasks.splice(tasks.indexOf(e.target.parentElement.innerText), 1);
+        indexItemInTasks = tasks.indexOf(e.target.parentElement.innerText);
+        tasks.splice(indexItemInTasks, 2);
         localStorage.setItem("todo", tasks);
         todoList.removeChild(e.target.parentElement);
     }
     if (e.target.nodeName == "LI") {
         e.target.classList.toggle("done");
+        indexItemInTasks = tasks.indexOf(e.target.innerText) + 1;
         if (e.target.classList.contains("done")) {
-            done.splice(tasks.indexOf(e.target.innerText), 1, "done");
+            tasks.splice(indexItemInTasks, 1, "done");
         }
         else {
-            done.splice(tasks.indexOf(e.target.innerText), 1, "false");
+            tasks.splice(indexItemInTasks, 1, "false");
         }
+        localStorage.setItem("todo", tasks);
     }
-    localStorage.setItem("done", done);
-}
-)
+})
 // function add new item to the todo list
 function newItem(title) {
-    let li = `<li><div class="tick"></div><p>${title}</p><i class="fa fa-close"></i></li>`;
+    const li = `<li><div class="tick"></div><p>${title}</p><i class="fa fa-close"></i></li>`;
     return li;
 }
 // function show items after load page
 function showItems() {
     for (let i = 0; i < tasks.length; i++) {
-        if (done[i] == "done") {
-            let li = `<li class="done"><div class="tick"></div><p>${tasks[i]}</p><i class="fa fa-close"></i></li>`;
+        if (i % 2 == 0 || i == 0) {
+            let li = newItem(tasks[i])
+            if (tasks[i + 1] == "done") {
+                li = `<li class="done"><div class="tick"></div><p>${tasks[i]}</p><i class="fa fa-close"></i></li>`
+            }
             todoList.innerHTML += li;
-        }
-        else {
-            todoList.innerHTML += newItem(tasks[i]);
         }
     }
 }
+function istouch() {
+    try {
+        document.createEvent("touchevent");
+        todoList.classList.add("show-delete-icon");
+    }
+    catch (e) {
+        todoList.classList.remove("show-delete-icon");
+    }
+}
+istouch();
