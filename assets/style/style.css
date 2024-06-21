@@ -16,7 +16,7 @@
 
 body{
     width: 100%;
-    height: 100%;
+    height: min(100vh , 100%);
     background-color: black;
     display: flex;
     justify-content: center;
@@ -38,7 +38,7 @@ h1{
 /* input and button */
 .top{
     width: 100%;
-    height: 40px;
+    height: 50px;
     border: 2px solid black;
     border-radius: 30px;
     overflow: hidden;
@@ -51,7 +51,7 @@ input{
     width: 100%;
     border: none;
     outline: none;
-    padding: 10px;
+    padding: 5px 15px;
     height: inherit;
     font-size: 18px;
 }
@@ -64,6 +64,9 @@ button{
     cursor: pointer;
     transition: all .2s;
     color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 button:hover {
     background-color: var(--dark-pink);
@@ -156,7 +159,7 @@ li i:hover {
 }
 /* modal box */
 .bg-modal-box{
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -172,10 +175,11 @@ li i:hover {
     background-color: lightgreen;
     border-left: 5px solid var(--dark-pink);
     border-radius: 20px;
-    text-align: center;
-    align-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 25px;
-    position: absolute;
+    position: fixed;
     top: -30%;
     left: 50%;
     transform: translate(-50%,-50%);
@@ -196,6 +200,8 @@ li i:hover {
     transform: translateX(-50%);
     color: var(--dark-pink);
     font-size: 25px;
+    z-index: 100;
+    text-shadow: 0 0 3px #000;
 }
 /* Loading */
 .loading{
